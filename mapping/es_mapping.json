@@ -1,0 +1,178 @@
+{
+    "numeric_detection": true,
+    "date_detection": false,
+    "properties": {
+        "expires": {
+            "type": "date"
+        },
+        "interface_capacity": {
+            "type": "integer"
+        },
+        "interface_name": {
+            "type": "keyword"
+        },
+        "interface_addresses":
+        {
+            "type": "ip"
+        },
+        "ip_versions":{
+            "type": "integer"
+        },
+        "pscheduler_enabled_tests": {
+            "type": "keyword"
+        },
+        "interface_mtu": {
+            "type": "integer"
+        },
+        "interface_mac": {
+            "type": "keyword"
+        },
+        "host": {
+            "type": "object",
+            "properties":{
+                "vm": {
+                    "type": "boolean"
+                },
+                "hardware_processorcore": {
+                    "type": "integer"
+                },
+                "os_kernel": {
+                    "type": "keyword"
+                },
+                "os_name": {
+                    "type": "keyword"
+                },
+                "hardware_processorspeed": {
+                    "type": "integer"
+                },
+                "os_version": {
+                    "type": "version"
+                },
+                "productname": {
+                    "type": "keyword"
+                },
+                "client_uuid": {
+                    "type": "keyword"
+                },
+                "perfsonar_bundle": {
+                    "type": "keyword"
+                },
+                "net_tcp_autotunemaxbuffer_send": {
+                    "type": "integer"
+                },
+                "net_tcp_maxbuffer_recv": {
+                    "type": "integer"
+                },
+                "manufacturer": {
+                    "type": "keyword"
+                },
+                "hardware_cpuid": {
+                    "type": "keyword"
+                },
+                "hardware_processorcount": {
+                    "type": "integer"
+                },
+                "perfsonar_version": {
+                    "type": "version"
+                },
+                "net_tcp_congestionalgorithm": {
+                    "type": "keyword"
+                },
+                "os_architecture": {
+                    "type": "keyword"
+                },
+                "name": {
+                    "type": "keyword"
+                },
+                "net_tcp_autotunemaxbuffer_recv": {
+                    "type": "integer"
+                },
+                "group_domains": {
+                    "type": "keyword"
+                },
+                "hardware_memory": {
+                    "type": "integer"
+                },
+                "net_tcp_maxbuffer_send": {
+                    "type": "integer"
+                },
+                "location":{
+                    "type": "object",
+                    "properties": {
+                        "state": {
+                            "type": "keyword"
+                        },
+                        "city": {
+                            "type": "keyword"
+                        },
+                        "zip": {
+                            "type": "keyword"
+                        },
+                        "country": {
+                            "type": "keyword"
+                        },
+                        "coordinates": {
+                            "type": "geo_point"
+                        },
+                        "sitename": {
+                            "type": "keyword"
+                        }
+                    }
+                },
+                "group_communities": {
+                    "type": "keyword"
+                },
+                "role": {
+                    "type": "keyword"
+                },
+                "access_policy": {
+                    "type": "keyword"
+                },
+                "install_method": {
+                    "type": "keyword"
+                },
+                "access_notes": {
+                    "type": "keyword"
+                },
+                "pscheduler_service": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "keyword"
+                        },
+                        "locator": {
+                            "type": "keyword"
+                        },
+                        "version": {
+                            "type": "version"
+                        },
+                        "tools_installed": {
+                            "type": "keyword"
+                        },
+                        "enabled_tests": {
+                            "type": "keyword"
+                        }
+                    }
+                },
+                "measurement_archive_service": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "keyword"
+                        },
+                        "locator": {
+                            "type": "keyword"
+                        },
+                        "version": {
+                            "type": "version"
+                        }
+                    }
+                },
+                "administrators": {
+                    "type": "keyword"
+                }
+            }
+        }
+    }
+}
+
