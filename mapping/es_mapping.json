@@ -5,27 +5,30 @@
         "expires": {
             "type": "date"
         },
-        "interface_capacity": {
+        "capacity": {
             "type": "integer"
         },
-        "interface_name": {
+        "name": {
             "type": "keyword"
         },
-        "interface_addresses":
+        "addresses":
         {
             "type": "ip"
         },
         "ip_versions":{
             "type": "integer"
         },
-        "pscheduler_enabled_tests": {
+        "pscheduler_tests": {
             "type": "keyword"
         },
-        "interface_mtu": {
+        "mtu": {
             "type": "integer"
         },
-        "interface_mac": {
+        "mac": {
             "type": "keyword"
+        },
+        "meta": {
+            "type": "object"
         },
         "host": {
             "type": "object",
@@ -33,7 +36,7 @@
                 "vm": {
                     "type": "boolean"
                 },
-                "hardware_processorcore": {
+                "processor_core_count": {
                     "type": "integer"
                 },
                 "os_kernel": {
@@ -42,7 +45,7 @@
                 "os_name": {
                     "type": "keyword"
                 },
-                "hardware_processorspeed": {
+                "processor_speed": {
                     "type": "integer"
                 },
                 "os_version": {
@@ -66,10 +69,10 @@
                 "manufacturer": {
                     "type": "keyword"
                 },
-                "hardware_cpuid": {
+                "processor_id": {
                     "type": "keyword"
                 },
-                "hardware_processorcount": {
+                "processor_count": {
                     "type": "integer"
                 },
                 "perfsonar_version": {
@@ -90,7 +93,7 @@
                 "group_domains": {
                     "type": "keyword"
                 },
-                "hardware_memory": {
+                "memory_bytes": {
                     "type": "integer"
                 },
                 "net_tcp_maxbuffer_send": {
@@ -128,48 +131,62 @@
                 "access_policy": {
                     "type": "keyword"
                 },
-                "install_method": {
-                    "type": "keyword"
-                },
                 "access_notes": {
                     "type": "keyword"
                 },
                 "pscheduler_service": {
                     "type": "object",
                     "properties": {
-                        "name": {
-                            "type": "keyword"
-                        },
-                        "locator": {
+                        "urls": {
                             "type": "keyword"
                         },
                         "version": {
                             "type": "version"
                         },
-                        "tools_installed": {
+                        "tools": {
                             "type": "keyword"
                         },
-                        "enabled_tests": {
+                        "tests": {
                             "type": "keyword"
+                        },
+                        "meta": {
+                            "type": "object"
                         }
                     }
                 },
-                "measurement_archive_service": {
+                "archive_service": {
                     "type": "object",
                     "properties": {
-                        "name": {
-                            "type": "keyword"
-                        },
-                        "locator": {
+                        "urls": {
                             "type": "keyword"
                         },
                         "version": {
                             "type": "version"
+                        },
+                        "archiver_type": {
+                            "type": "keyword"
+                        },
+                        "write_type": {
+                            "type": "keyword"
+                        },
+                        "meta": {
+                            "type": "object"
                         }
                     }
                 },
                 "administrators": {
-                    "type": "keyword"
+                    "type": "object",
+                    "properties":{
+                        "emails":{
+                            "type": "keyword"
+                        },
+                        "meta":{
+                            "type": "object"
+                        }
+                    }
+                },
+                "meta": {
+                    "type": "object"
                 }
             }
         }
