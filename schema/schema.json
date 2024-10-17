@@ -1,0 +1,428 @@
+{
+    "title": "perfSONAR Lookup Service Schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "$definitions": {
+        "host": {
+            "type": "object",
+            "properties": {
+                "vm": {
+                    "description": "is host a VM?",
+                    "type": "boolean"
+                },
+                "administrators": {
+                    "description": "perfsonar host admin record ids",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$definitions/person"
+                    }
+                },
+                "processor_core_count": {
+                    "description": "number of cores",
+                    "type": "integer"
+                },
+                "os_kernel": {
+                    "description": "OS kernel",
+                    "type": "string"
+                },
+                "os_name": {
+                    "description": "host OS name",
+                    "type": "string"
+                },
+                "processor_speed": {
+                    "description": "processors speed in Hz",
+                    "type": "array",
+                    "items": {
+                            "type": "string"
+                        }
+                },
+                "os_version": {
+                    "description": "OS version",
+                    "type": "string"
+                },
+                "product_name": {
+                    "description": "host product name",
+                    "type": "string"
+                },
+                "client_uuid": {
+                    "type": "string"
+                },
+                "perfsonar_bundle": {
+                    "description": "type of perfsonar installation",
+                    "type": "string"
+                },
+                "net_core_rmem_max": {
+                    "description": "Core - max recv buffer in bytes",
+                    "type": "string"
+                },
+                "net_core_rmem_default": {
+                    "description": "Core - default recv buffer in bytes",
+                    "type": "string"
+                },
+                "net_core_wmem_max": {
+                    "description": "Core - max Send buffer in bytes",
+                    "type": "string"
+                },
+                "net_core_wmem_default": {
+                    "description": "Core - default Send buffer in bytes",
+                    "type": "string"
+                },
+                "manufacturer": {
+                    "description": "host manufacturer",
+                    "type": "string"
+                },
+                "processor_id": {
+                    "description": "CPU id",
+                    "type": "string"
+                },
+                "perfsonar_version": {
+                    "description": "bundle version",
+                    "type": "string"
+                },
+                "net_ipv4_tcp_congestion_control": {
+                    "description": "TCP congestion control algorithm",
+                    "type": "string"
+                },
+                "net_ipv4_tcp_available_congestion_control": {
+                    "description": "Available TCP congestion control algorithms",
+                    "type": "array",
+                    "items":{
+                        "type": "string"
+                    }
+                },
+                "net_ipv4_tcp_allowed_congestion_control": {
+                    "description": "Allowed TCP congestion control algorithms",
+                    "type": "array",
+                    "items":{
+                        "type": "string"
+                    }
+                },
+                "os_architecture": {
+                    "description": "OS architecture",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "perfsonar host name(s)",
+                    "type": "array",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "hostname"
+                            },
+                            {
+                                "type": "string",
+                                "format": "ipv4"
+                            },
+                            {
+                                "type": "string",
+                                "format": "ipv6"
+                            }
+                        ]
+                    }
+                },
+                "net_ipv4_tcp_rmem_default": {
+                    "description": "TCP default recv. buffer in bytes",
+                    "type": "string"
+                },
+                "net_ipv4_tcp_rmem_max": {
+                    "description": "TCP max recv. buffer in bytes",
+                    "type": "string"
+                },
+                "net_ipv4_tcp_rmem_min": {
+                    "description": "TCP min recv. buffer in bytes",
+                    "type": "string"
+                },
+                "net_ipv4_tcp_wmem_default": {
+                    "description": "TCP default Send buffer in bytes",
+                    "type": "string"
+                },
+                "net_ipv4_tcp_wmem_max": {
+                    "description": "TCP max Send buffer in bytes",
+                    "type": "string"
+                },
+                "net_ipv4_tcp_wmem_min": {
+                    "description": "TCP min Send buffer in bytes",
+                    "type": "string"
+                },
+                "net_ipv4_tcp_no_metrics_save": {
+                    "description": "Flag - not cache metrics on closing connections",
+                    "type": "boolean"
+                },
+                "net_ipv4_tcp_mtu_probing": {
+                    "description": "MTU discovery control",
+                    "type": "integer"
+                },
+                "net_core_default_qdisc": {
+                    "description": "default queuing discipline",
+                    "type": "string"
+                },
+                "net_ipv4_conf_all_arp_ignore": {
+                    "description": "ARP request response mode",
+                    "type": "integer"
+                },
+                "net_ipv4_conf_all_arp_announce": {
+                    "description": "ARP request restriction levels",
+                    "type": "integer"
+                },
+                "net_ipv4_conf_default_arp_filter": {
+                    "description": "default ARP filter",
+                    "type": "boolean"
+                },
+                "net_ipv4_conf_all_arp_filter": {
+                    "description": "All ARP filter",
+                    "type": "boolean"
+                },
+                "net_core_netdev_max_backlog": {
+                    "description": "Max size of the recv. queue",
+                    "type": "number"
+                },
+                "group_domains": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "memory_bytes": {
+                    "description": "memory in bytes",
+                    "type": "string"
+                },
+                "location": {
+                    "type": "object",
+                    "properties": {
+                        "state_province_region": {
+                            "description": "State/ province/ region",
+                            "type": "string"
+                        },
+                        "city": {
+                            "description": "city",
+                            "type": "string"
+                        },
+                        "postal_code": {
+                            "description": "zipcode/ postal code",
+                            "type": "string"
+                        },
+                        "country": {
+                            "description": "country",
+                            "type": "string"
+                        },
+                        "latitude": {
+                            "description": "latitude",
+                            "type": "number"
+                        },
+                        "longitude": {
+                            "description": "longitude",
+                            "type": "number"
+                        },
+                        "sitename": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "group_communities": {
+                    "description": "community",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "role": {
+                    "description": "role of this perfsonar host - regional, science-dmz, etc",
+                    "type": "string",
+                    "enum": [
+                        "nren",
+                        "regional",
+                        "site-border",
+                        "site-internal",
+                        "science-dmz",
+                        "exchange-point",
+                        "test-host",
+                        "default-path",
+                        "backup-path"
+                    ]
+                },
+                "access_policy": {
+                    "description": "access policy for the host. In other words, this defines who can run tests to the host",
+                    "type": "string",
+                    "enum": [
+                        "public",
+                        "private",
+                        "research-education",
+                        "limited"
+                    ]
+                },
+                "access_notes": {
+                    "type": "string"
+                },
+                "pscheduler_service": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$definitions/pscheduler_service_schema"
+                        }
+                    ]
+                },
+                "archive_service": {
+                    "$ref": "#/$definitions/archive_service_schema"
+                },
+                "meta": {
+                    "type": "object"
+                }
+            },
+            "unevaluatedProperties": false,
+            "required": [
+                "client_uuid",
+                "name"
+            ]
+        },
+        "service": {
+            "type": "object",
+            "properties": {
+                "urls": {
+                    "description": "service locator urls",
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "format": "uri"
+                    }
+                },
+                "version": {
+                    "description": "service version",
+                    "type": "string"
+                },
+                "meta": {
+                    "type": "object"
+                }
+            },
+            "required": [
+                "urls"
+            ]
+        },
+        "pscheduler_service_schema": {
+            "type": "object",
+            "properties": {
+                "tools": {
+                    "description": "pscheduler tools installed",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "tests": {
+                    "description": "pscheduler tests enabled on the host",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "allOf": [
+                {
+                    "$ref": "#/$definitions/service"
+                }
+            ],
+            "unevaluatedProperties": false,
+            "required": [
+                "tools",
+                "tests"
+            ]
+        },
+        "archive_service_schema": {
+            "type": "object",
+            "properties": {
+                "write_urls": {
+                    "description": "write urls for archive results",
+                    "type": "array",
+                    "items": {
+                        "type": "uri"
+                    }
+                },
+                "archiver_type": {
+                    "description": "archiver db type - opensearch, elasticsearch etc.",
+                    "type": "string"
+                },
+                "write_type": {
+                    "description": "write archiver type if different from read archiver",
+                    "type": "string"
+                }
+            },
+            "required": ["archiver_type"],
+            "allOf": [
+                {
+                    "$ref": "#/$definitions/service"
+                }
+            ],
+            "unevaluatedProperties": false
+        },
+        "person": {
+            "type": "object",
+            "properties": {
+                "emails": {
+                    "description": "perfsonar host admin emails",
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "format": "email"
+                    }
+                },
+                "meta": {
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "emails"
+            ]
+        }
+    },
+    "properties": {
+        "capacity": {
+            "type": "integer",
+            "description": "interface capacity"
+        },
+        "name": {
+            "type": "string"
+        },
+        "addresses": {
+            "description": "interface addresses",
+            "type": "array",
+            "items": {
+                "anyOf": [
+                    {
+                        "type": "string",
+                        "format": "ipv4"
+                    },
+                    {
+                        "type": "string",
+                        "format": "ipv6"
+                    }
+                ]
+            }
+        },
+        "pscheduler_tests": {
+            "description": "pscheduler tests enabled on the interface",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "mtu": {
+            "description": "interface MTU",
+            "type": "number"
+        },
+        "mac": {
+            "description": "interface mac address",
+            "type": "string"
+        },
+        "meta": {
+            "type": "object"
+        },
+        "host": {
+            "$ref": "#/$definitions/host"
+        }
+    },
+    "required": [
+        "addresses",
+        "host"
+    ],
+    "unevaluatedProperties": false
+}

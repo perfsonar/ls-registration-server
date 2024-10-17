@@ -1,7 +1,20 @@
 {
+    "dynamic_templates": [
+        {
+            "strings_as_text": {
+                "match_mapping_type": "string",
+                "mapping": {
+                    "type": "keyword"
+                }
+            }
+        }
+    ],
     "numeric_detection": true,
     "date_detection": false,
     "properties": {
+        "@timestamp": {
+            "type": "date"
+        },
         "expires": {
             "type": "date"
         },
@@ -11,11 +24,10 @@
         "name": {
             "type": "keyword"
         },
-        "addresses":
-        {
+        "addresses": {
             "type": "ip"
         },
-        "ip_versions":{
+        "ip_versions": {
             "type": "integer"
         },
         "pscheduler_tests": {
@@ -32,7 +44,7 @@
         },
         "host": {
             "type": "object",
-            "properties":{
+            "properties": {
                 "vm": {
                     "type": "boolean"
                 },
@@ -46,7 +58,7 @@
                     "type": "keyword"
                 },
                 "processor_speed": {
-                    "type": "integer"
+                    "type": "long"
                 },
                 "os_version": {
                     "type": "version"
@@ -60,11 +72,17 @@
                 "perfsonar_bundle": {
                     "type": "keyword"
                 },
-                "net_tcp_autotunemaxbuffer_send": {
-                    "type": "integer"
+                "net_core_rmem_max": {
+                    "type": "text"
                 },
-                "net_tcp_maxbuffer_recv": {
-                    "type": "integer"
+                "net_core_rmem_default": {
+                    "type": "text"
+                },
+                "net_core_wmem_max": {
+                    "type": "text"
+                },
+                "net_core_wmem_default": {
+                    "type": "text"
                 },
                 "manufacturer": {
                     "type": "keyword"
@@ -72,13 +90,16 @@
                 "processor_id": {
                     "type": "keyword"
                 },
-                "processor_count": {
-                    "type": "integer"
-                },
                 "perfsonar_version": {
                     "type": "version"
                 },
-                "net_tcp_congestionalgorithm": {
+                "net_ipv4_tcp_congestion_control": {
+                    "type": "keyword"
+                },
+                "net_ipv4_tcp_available_congestion_control":{
+                    "type": "keyword"
+                },
+                "net_ipv4_tcp_allowed_congestion_control":{
                     "type": "keyword"
                 },
                 "os_architecture": {
@@ -87,28 +108,64 @@
                 "name": {
                     "type": "keyword"
                 },
-                "net_tcp_autotunemaxbuffer_recv": {
+                "net_ipv4_tcp_rmem_default": {
+                    "type": "text"
+                },
+                "net_ipv4_tcp_rmem_max":{
+                    "type": "text"
+                },
+                "net_ipv4_tcp_rmem_min":{
+                    "type": "text"
+                },
+                "net_ipv4_tcp_wmem_default": {
+                    "type": "text"
+                },
+                "net_ipv4_tcp_wmem_max": {
+                    "type": "text"
+                },
+                "net_ipv4_tcp_wmem_min": {
+                    "type": "text"
+                },
+                "net_ipv4_tcp_no_metrics_save":{
+                    "type": "boolean"
+                },
+                "net_ipv4_tcp_mtu_probing":{
                     "type": "integer"
+                },
+                "net_core_default_qdisc":{
+                    "type": "text"
+                },
+                "net_ipv4_conf_all_arp_ignore":{
+                    "type": "integer"
+                },
+                "net_ipv4_conf_all_arp_announce":{
+                    "type": "integer"
+                },
+                "net_ipv4_conf_default_arp_filter":{
+                    "type": "boolean"
+                },
+                "net_ipv4_conf_all_arp_filter":{
+                    "type": "boolean"
+                },
+                "net_core_netdev_max_backlog":{
+                    "type": "long"
                 },
                 "group_domains": {
                     "type": "keyword"
                 },
                 "memory_bytes": {
-                    "type": "integer"
+                    "type": "text"
                 },
-                "net_tcp_maxbuffer_send": {
-                    "type": "integer"
-                },
-                "location":{
+                "location": {
                     "type": "object",
                     "properties": {
-                        "state": {
+                        "state_province_region": {
                             "type": "keyword"
                         },
                         "city": {
                             "type": "keyword"
                         },
-                        "zip": {
+                        "postal_code": {
                             "type": "keyword"
                         },
                         "country": {
@@ -160,6 +217,9 @@
                         "urls": {
                             "type": "keyword"
                         },
+                        "write_urls": {
+                            "type": "keyword"
+                        },
                         "version": {
                             "type": "version"
                         },
@@ -176,11 +236,11 @@
                 },
                 "administrators": {
                     "type": "object",
-                    "properties":{
-                        "emails":{
+                    "properties": {
+                        "emails": {
                             "type": "keyword"
                         },
-                        "meta":{
+                        "meta": {
                             "type": "object"
                         }
                     }
@@ -192,4 +252,3 @@
         }
     }
 }
-

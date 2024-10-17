@@ -1,0 +1,10 @@
+__pycache__
+app/__pycache__
+app/routers/__pycache__
+schema/__pycache__
+schema/model.py
+schema/__init__.py
+tests/
+Dockerfile
+http_ca.crt
+Dockerfile
