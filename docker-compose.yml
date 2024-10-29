@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+  lookupservice:
+    image: perfsonar/lookupservice:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
