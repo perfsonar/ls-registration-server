@@ -2,6 +2,7 @@ version: "3.8"
 
 volumes:
  certs:
+ elasticdata:
  kibanadata:
 
 services:
@@ -110,7 +111,7 @@ services:
         hard: 65536
     volumes:
      - certs:/usr/share/elasticsearch/config/certs
-     - ./elastic_data:/usr/share/elasticsearch/data
+     - elasticdata:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -133,6 +134,7 @@ services:
       - ELASTICSEARCH_USERNAME=kibana_system
       - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}
       - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=config/certs/ca/ca.crt
+      - SERVER_BASEPATH=${KIBANA_URL_BASEPATH}
       - XPACK_SECURITY_ENCRYPTIONKEY=${KIBANA_ENCRYPTION_KEY}
       - XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY=${KIBANA_ENCRYPTION_KEY}
       - XPACK_REPORTING_ENCRYPTIONKEY=${KIBANA_ENCRYPTION_KEY}

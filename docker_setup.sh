@@ -2,16 +2,6 @@
 
 #NOTE: On mac, the sed -i option does not work without a backup extension.
 
-#Create ./elastic_data directory if doesn't exist
-echo "[Data directory setup]"
-if [ ! -d "./elastic_data" ]; then
-    echo "Creating ./elastic_data directory"
-  mkdir elastic_data
-else
-    echo "./elastic_data directory already exists"
-fi
-echo ""
-
 #Copy env.example to .env if .env doesn't exist
 echo "[Environment file setup]"
 if [ ! -f ".env" ]; then
