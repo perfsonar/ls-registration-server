@@ -3,6 +3,7 @@ from datetime import datetime, timezone, timedelta
 from elasticsearch import Elasticsearch
 from opensearchpy import OpenSearch
 import json
+import ssl
 from fastapi import HTTPException
 import os
 
@@ -24,9 +25,22 @@ def map_dbspec(record):
 
 def post_to_elastic(record):
     # Create the client instance
+    verify_certs_val = os.environ.get('ELASTIC_VERIFY_CERTS', 'false').lower()
+    verify_certs=False
+    if verify_certs_val == '1' or verify_certs_val.startswith('t') or verify_certs_val.startswith('y'):
+        verify_certs=True
+        ssl_ctx = ssl.create_default_context(cafile=os.environ['ELASTIC_CA_CERT'])
+        ssl_ctx.check_hostname = True
+        ssl_ctx.verify_mode = ssl.CERT_REQUIRED
+    else:
+        ssl_ctx = ssl.create_default_context()
+        ssl_ctx.check_hostname = False
+        ssl_ctx.verify_mode = ssl.CERT_NONE 
+
     esclient = Elasticsearch(
         os.environ['ELASTIC_HOST'],
-        ca_certs=os.environ.get('ELASTIC_CA_CERT'),
+        ssl_context=ssl_ctx,
+        verify_certs=verify_certs,
         basic_auth=(os.environ['ELASTIC_USER'], os.environ['ELASTIC_PASS'])
     )
     record_id = record['host']['client_uuid']
