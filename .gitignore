@@ -6,3 +6,4 @@ schema/model.py
 schema/__init__.py
 tests/
 http_ca.crt
+.env
