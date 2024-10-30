@@ -7,3 +7,4 @@ schema/__init__.py
 tests/
 http_ca.crt
 .env
+elastic_data/
