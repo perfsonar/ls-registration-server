@@ -5,6 +5,4 @@ schema/__pycache__
 schema/model.py
 schema/__init__.py
 tests/
-Dockerfile
 http_ca.crt
-Dockerfile
