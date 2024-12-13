@@ -18,7 +18,7 @@ def register_record(request: Request, response: Response, registration_record: d
         raise HTTPException(status_code=422, 
                             detail="Registration record Validation failed. {}".format(registration_record['error'].message))
     
-    registration_record = map_dbspec(registration_record['record'])
+    registration_record = registration_record['record']
     registration_record = map_dbspec(registration_record)
     response = post_to_elastic(registration_record)
 

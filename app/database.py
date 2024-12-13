@@ -1,10 +1,15 @@
 from ipaddress import ip_address, IPv6Address, IPv4Address
 from datetime import datetime, timezone, timedelta
 from elasticsearch import Elasticsearch
+import elasticsearch
 from opensearchpy import OpenSearch
 import json
 from fastapi import HTTPException
 import os
+import logging
+import ssl
+
+logger = logging.getLogger(__name__)
 
 def map_dbspec(record):
 
@@ -24,9 +29,22 @@ def map_dbspec(record):
 
 def post_to_elastic(record):
     # Create the client instance
+    verify_certs_val = os.environ.get('ELASTIC_VERIFY_CERTS', 'false').lower()
+    verify_certs=False
+    if verify_certs_val == '1' or verify_certs_val.startswith('t') or verify_certs_val.startswith('y'):
+        verify_certs=True
+        ssl_ctx = ssl.create_default_context(cafile=os.environ['ELASTIC_CA_CERT'])
+        ssl_ctx.check_hostname = True
+        ssl_ctx.verify_mode = ssl.CERT_REQUIRED
+    else:
+        ssl_ctx = ssl.create_default_context()
+        ssl_ctx.check_hostname = False
+        ssl_ctx.verify_mode = ssl.CERT_NONE
+
     esclient = Elasticsearch(
         os.environ['ELASTIC_HOST'],
-        ca_certs=os.environ.get('ELASTIC_CA_CERT'),
+        ssl_context=ssl_ctx,
+        verify_certs=verify_certs,
         basic_auth=(os.environ['ELASTIC_USER'], os.environ['ELASTIC_PASS'])
     )
     record_id = record['host']['client_uuid']
@@ -46,10 +64,21 @@ def post_to_elastic(record):
                 }
             
             esclient.indices.create(index=os.environ['ELASTIC_INDEX'], ignore=400, body=settings)
+
+        #Delete record if exists
+        try:
+            resp = esclient.delete(index='test_index', id=record_id)
+            if not resp.get('result') == 'deleted':
+                logger.debug('record with id {} not deleted'.format(record_id))
+        except elasticsearch.NotFoundError:
+            logger.debug('Record id - {} not found for deletion. Proceeding to add the record'.format(record_id))
+            pass
+
+        #Create the record
         resp = esclient.index(index=os.environ['ELASTIC_INDEX'], document=record, id=record_id)
+        logger.info('Record with id {} submitted for creation with the result {}'.format(record_id, resp))
         
     except Exception as e:
         raise HTTPException(status_code=500, detail="Error handling elasticsearch connection - " + str(e))
 
-    
     return resp
