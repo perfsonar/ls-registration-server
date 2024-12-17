@@ -1,10 +1,7 @@
 from fastapi import APIRouter, Request, Response, HTTPException
 from ..validate_record import RecordValidation
-from ..database import map_dbspec, post_to_elastic
-try:
-    from schema.model import PerfsonarLookupServiceSchema
-except Exception:
-    PerfsonarLookupServiceSchema = dict
+from ..database import map_dbspec, post_to_elastic, post_to_opensearch
+import os
 
 router = APIRouter()
 validation = RecordValidation()
@@ -20,6 +17,9 @@ def register_record(request: Request, response: Response, registration_record: d
     
     registration_record = registration_record['record']
     registration_record = map_dbspec(registration_record)
-    response = post_to_elastic(registration_record)
+    if str(os.environ.get('DATABASE')).startswith('elastic'):
+        response = post_to_elastic(registration_record)
+    elif str(os.environ.get('DATABASE')).startswith('opensearch'):
+        response = post_to_opensearch(registration_record)
 
     return response

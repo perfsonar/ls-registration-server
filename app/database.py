@@ -2,6 +2,7 @@ from ipaddress import ip_address, IPv6Address, IPv4Address
 from datetime import datetime, timezone, timedelta
 from elasticsearch import Elasticsearch
 import elasticsearch
+import opensearchpy
 from opensearchpy import OpenSearch
 import json
 from fastapi import HTTPException
@@ -27,6 +28,63 @@ def map_dbspec(record):
 
     return record
 
+def map_record_id(record):
+    record_id = record['host']['client_uuid']
+    for ip in record['addresses']:
+        record_id += '-' + str(ip)
+    return record_id
+
+def post_to_opensearch(record):
+    # Create the client instance
+    verify_certs_val = os.environ.get('OS_VERIFY_CERTS', 'false').lower()
+    if verify_certs_val == '1' or verify_certs_val.startswith('t') or verify_certs_val.startswith('y'):
+        verify_certs=True
+    else:
+        verify_certs=False
+
+    os_client = OpenSearch(
+        os.environ['OS_HOST'],
+        ca_certs=os.environ['OS_CA_CERT'],
+        verify_certs=verify_certs,
+        http_auth=(os.environ['OS_USER'], os.environ['OS_PASS'])
+    )
+
+    try:
+        if not os_client.indices.exists(index=os.environ['OS_INDEX']):
+            with open('app/mapping/os_mapping.json') as file:
+                os_mapping = json.load(file)
+            
+            with open('app/mapping/os_settings.json') as file:
+                os_settings = json.load(file)
+            
+            settings = {
+                "settings": os_settings,
+                    "mappings": os_mapping
+                }
+            
+            os_client.indices.create(index=os.environ['OS_INDEX'], body=settings)
+
+        #Generate record id
+        record_id = map_record_id(record)
+
+        #Delete record if exists
+        try:
+            resp = os_client.delete(index=os.environ['OS_INDEX'], id=record_id)
+            if not resp.get('result') == 'deleted':
+                logger.debug('record with id {} not deleted'.format(record_id))
+        except opensearchpy.exceptions.NotFoundError:
+            logger.debug('Record id - {} not found for deletion. Proceeding to add the record'.format(record_id))
+            pass
+
+        #Create the record
+        resp = os_client.index(index=os.environ['OS_INDEX'], body=record, id=record_id, refresh=True)
+        logger.info('Record with id {} submitted for creation with the result {}'.format(record_id, resp))
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Error handling opensearch connection - " + str(e))
+
+    return resp
+
 def post_to_elastic(record):
     # Create the client instance
     verify_certs_val = os.environ.get('ELASTIC_VERIFY_CERTS', 'false').lower()
@@ -47,9 +105,7 @@ def post_to_elastic(record):
         verify_certs=verify_certs,
         basic_auth=(os.environ['ELASTIC_USER'], os.environ['ELASTIC_PASS'])
     )
-    record_id = record['host']['client_uuid']
-    for ip in record['addresses']:
-        record_id += '-' + str(ip)
+    
     try:
         if not esclient.indices.exists(index=os.environ['ELASTIC_INDEX']):
             with open('app/mapping/es_mapping.json') as file:
@@ -65,9 +121,12 @@ def post_to_elastic(record):
             
             esclient.indices.create(index=os.environ['ELASTIC_INDEX'], ignore=400, body=settings)
 
+        #Generate record id
+        record_id = map_record_id(record)
+
         #Delete record if exists
         try:
-            resp = esclient.delete(index='test_index', id=record_id)
+            resp = esclient.delete(index=os.environ['ELASTIC_INDEX'], id=record_id)
             if not resp.get('result') == 'deleted':
                 logger.debug('record with id {} not deleted'.format(record_id))
         except elasticsearch.NotFoundError:
