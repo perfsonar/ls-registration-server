@@ -73,16 +73,16 @@
                     "type": "keyword"
                 },
                 "net_core_rmem_max": {
-                    "type": "text"
+                    "type": "double"
                 },
                 "net_core_rmem_default": {
-                    "type": "text"
+                    "type": "double"
                 },
                 "net_core_wmem_max": {
-                    "type": "text"
+                    "type": "double"
                 },
                 "net_core_wmem_default": {
-                    "type": "text"
+                    "type": "double"
                 },
                 "manufacturer": {
                     "type": "keyword"
@@ -109,22 +109,22 @@
                     "type": "keyword"
                 },
                 "net_ipv4_tcp_rmem_default": {
-                    "type": "text"
+                    "type": "double"
                 },
                 "net_ipv4_tcp_rmem_max":{
-                    "type": "text"
+                    "type": "double"
                 },
                 "net_ipv4_tcp_rmem_min":{
-                    "type": "text"
+                    "type": "double"
                 },
                 "net_ipv4_tcp_wmem_default": {
-                    "type": "text"
+                    "type": "double"
                 },
                 "net_ipv4_tcp_wmem_max": {
-                    "type": "text"
+                    "type": "double"
                 },
                 "net_ipv4_tcp_wmem_min": {
-                    "type": "text"
+                    "type": "double"
                 },
                 "net_ipv4_tcp_no_metrics_save":{
                     "type": "boolean"
