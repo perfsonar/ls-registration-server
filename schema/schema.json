@@ -53,19 +53,19 @@
                 },
                 "net_core_rmem_max": {
                     "description": "Core - max recv buffer in bytes",
-                    "type": "string"
+                    "type": "number"
                 },
                 "net_core_rmem_default": {
                     "description": "Core - default recv buffer in bytes",
-                    "type": "string"
+                    "type": "number"
                 },
                 "net_core_wmem_max": {
                     "description": "Core - max Send buffer in bytes",
-                    "type": "string"
+                    "type": "number"
                 },
                 "net_core_wmem_default": {
                     "description": "Core - default Send buffer in bytes",
-                    "type": "string"
+                    "type": "number"
                 },
                 "manufacturer": {
                     "description": "host manufacturer",
@@ -123,27 +123,27 @@
                 },
                 "net_ipv4_tcp_rmem_default": {
                     "description": "TCP default recv. buffer in bytes",
-                    "type": "string"
+                    "type": "number"
                 },
                 "net_ipv4_tcp_rmem_max": {
                     "description": "TCP max recv. buffer in bytes",
-                    "type": "string"
+                    "type": "number"
                 },
                 "net_ipv4_tcp_rmem_min": {
                     "description": "TCP min recv. buffer in bytes",
-                    "type": "string"
+                    "type": "number"
                 },
                 "net_ipv4_tcp_wmem_default": {
                     "description": "TCP default Send buffer in bytes",
-                    "type": "string"
+                    "type": "number"
                 },
                 "net_ipv4_tcp_wmem_max": {
                     "description": "TCP max Send buffer in bytes",
-                    "type": "string"
+                    "type": "number"
                 },
                 "net_ipv4_tcp_wmem_min": {
                     "description": "TCP min Send buffer in bytes",
-                    "type": "string"
+                    "type": "number"
                 },
                 "net_ipv4_tcp_no_metrics_save": {
                     "description": "Flag - not cache metrics on closing connections",
@@ -185,7 +185,7 @@
                 },
                 "memory_bytes": {
                     "description": "memory in bytes",
-                    "type": "string"
+                    "type": "number"
                 },
                 "location": {
                     "type": "object",
