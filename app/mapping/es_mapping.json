@@ -87,9 +87,6 @@
                 "manufacturer": {
                     "type": "keyword"
                 },
-                "processor_id": {
-                    "type": "keyword"
-                },
                 "perfsonar_version": {
                     "type": "version"
                 },
