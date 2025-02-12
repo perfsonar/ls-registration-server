@@ -30,8 +30,7 @@ def map_dbspec(record):
 
 def map_record_id(record):
     record_id = record['host']['client_uuid']
-    for ip in record['addresses']:
-        record_id += '-' + str(ip)
+    record_id += '-' + '-'.join(sorted(record['addresses']))
     return record_id
 
 def post_to_opensearch(record):
